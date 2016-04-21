@@ -2830,7 +2830,7 @@ begin_fwd:
 		if (sacked & (TCPCB_SACKED_ACKED|TCPCB_SACKED_RETRANS))
 			continue;
 
-		if (tcp_retransmit_skb(sk, skb))
+		if (tcp_retransmit_skb(sk, skb, segs))
 			return;
 
 		NET_INC_STATS_BH(sock_net(sk), mib_idx);
