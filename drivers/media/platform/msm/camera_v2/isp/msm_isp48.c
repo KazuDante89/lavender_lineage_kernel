@@ -28,6 +28,9 @@
 #define MSM_VFE48_BUS_CLIENT_INIT 0xABAB
 #define VFE48_STATS_BURST_LEN 3
 #define VFE48_UB_SIZE_VFE 2048 /* 2048 * 256 bits = 64KB */
+#ifdef CONFIG_MACH_XIAOMI_NEW_CAMERA
+#define VFE48_UB_STATS_SIZE 608
+#else
 #define VFE48_UB_STATS_SIZE 144
 #define MSM_ISP48_TOTAL_IMAGE_UB_VFE (VFE48_UB_SIZE_VFE - VFE48_UB_STATS_SIZE)
 
@@ -318,6 +321,19 @@ void msm_vfe48_stats_cfg_ub(struct vfe_device *vfe_dev)
 {
 	int i;
 	uint32_t ub_offset = 0, stats_burst_len;
+#ifdef CONFIG_MACH_XIAOMI_NEW_CAMERA
+	uint32_t ub_size[VFE47_NUM_STATS_TYPE] = {
+		80, /* MSM_ISP_STATS_HDR_BE */
+		64, /* MSM_ISP_STATS_BG */
+		64, /* MSM_ISP_STATS_BF */
+		64, /* MSM_ISP_STATS_HDR_BHIST */
+		64, /* MSM_ISP_STATS_RS */
+		64, /* MSM_ISP_STATS_CS */
+		64, /* MSM_ISP_STATS_IHIST */
+		64, /* MSM_ISP_STATS_BHIST */
+		80, /* MSM_ISP_STATS_AEC_BG */
+	};
+#else
 	uint32_t ub_size[VFE47_NUM_STATS_TYPE] = {
 		16, /* MSM_ISP_STATS_HDR_BE */
 		16, /* MSM_ISP_STATS_BG */
@@ -503,4 +519,3 @@ module_init(msm_vfe47_init_module);
 module_exit(msm_vfe47_exit_module);
 MODULE_DESCRIPTION("MSM VFE48 driver");
 MODULE_LICENSE("GPL v2");
-

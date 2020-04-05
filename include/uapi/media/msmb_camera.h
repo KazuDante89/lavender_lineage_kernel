@@ -53,6 +53,9 @@
 #define MSM_CAMERA_SUBDEV_EXT          19
 #define MSM_CAMERA_SUBDEV_TOF          20
 #define MSM_CAMERA_SUBDEV_LASER_LED    21
+#ifdef CONFIG_MACH_XIAOMI_NEW_CAMERA
+#define MSM_MAX_CAMERA_SENSORS  7
+#else
 #define MSM_MAX_CAMERA_SENSORS  6
 
 /* The below macro is defined to put an upper limit on maximum
@@ -229,4 +232,3 @@ struct msm_camera_private_ioctl_arg {
 	_IOWR('V', BASE_VIDIOC_PRIVATE, struct msm_camera_private_ioctl_arg)
 
 #endif
-
