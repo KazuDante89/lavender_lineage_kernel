@@ -788,8 +788,6 @@ boost_slots_release(struct schedtune *st)
 }
 #endif // CONFIG_DYNAMIC_STUNE_BOOST
 
-	return 0;
-}
 
 static struct cftype files[] = {
 	{
