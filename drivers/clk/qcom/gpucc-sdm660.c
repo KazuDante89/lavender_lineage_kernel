@@ -184,8 +184,8 @@ static const struct freq_tbl ftbl_gfx3d_clk_src[] = {
 	F_GFX(585000000, 0,  2, 0, 0, 1170000000),
 	F_GFX(588000000, 0,  2, 0, 0, 1176000000),
 	F_GFX(647000000, 0,  2, 0, 0, 1294000000),
-	F_GFX(700000000, 0,  2, 0, 0, 1400000000),
-	F_GFX(750000000, 0,  2, 0, 0, 1500000000),
+	F_GFX(700000000, 0,  2, 0, 0, 1294000000),
+	F_GFX(750000000, 0,  2, 0, 0, 1295000000),
 	{ }
 };
 
@@ -565,4 +565,3 @@ static void __exit gpu_660_exit(void)
 	platform_driver_unregister(&gpu_660_driver);
 }
 module_exit(gpu_660_exit);
-
