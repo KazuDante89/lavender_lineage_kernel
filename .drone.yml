@@ -7,7 +7,7 @@ steps:
   -
     commands:
       - "export token=$TOKEN"
-      - "curl https://raw.githubusercontent.com/KazuDante89/lavender_lineage_kernel/Neuronic_v0.0/build.sh | bash"
+      - "curl https://raw.githubusercontent.com/KazuDante89/lavender_lineage_kernel/Neuronic_v0.1/build.sh | bash"
     environment:
       TOKEN:
         from_secret: token
@@ -15,4 +15,4 @@ steps:
     name: Azure-Images
     trigger:
       branch:
-        - Neuronic_v0.0
+        - Neuronic_v0.1
