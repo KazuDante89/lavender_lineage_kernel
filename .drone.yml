@@ -7,7 +7,7 @@ steps:
   -
     commands:
       - "export token=$TOKEN"
-      - "curl https://raw.githubusercontent.com/KazuDante89/lavender_lineage_kernel/A11-Newbie/build.sh | bash"
+      - "curl https://raw.githubusercontent.com/KazuDante89/lavender_lineage_kernel/A12.1-Newbie/build.sh | bash"
     environment:
       TOKEN:
         from_secret: token
@@ -15,4 +15,4 @@ steps:
     name: Azure-Images
     trigger:
       branch:
-        - A11-Newbie
+        - A12.1-Newbie
