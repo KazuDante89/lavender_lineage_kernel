@@ -49,8 +49,8 @@
  * (to see the precise effective timeslice length of your workload,
  *  run vmstat and monitor the context-switches (cs) field)
  */
-unsigned int sysctl_sched_latency = 6000000ULL;
-unsigned int normalized_sysctl_sched_latency = 6000000ULL;
+unsigned int sysctl_sched_latency = 20000000ULL;
+unsigned int normalized_sysctl_sched_latency = 20000000ULL;
 
 unsigned int sysctl_sched_sync_hint_enable = 1;
 unsigned int sysctl_sched_cstate_aware = 1;
@@ -59,7 +59,7 @@ unsigned int sysctl_sched_cstate_aware = 1;
 unsigned int sysctl_sched_use_walt_cpu_util = 1;
 unsigned int sysctl_sched_use_walt_task_util = 1;
 __read_mostly unsigned int sysctl_sched_walt_cpu_high_irqload =
-    (10 * NSEC_PER_MSEC);
+    (20 * NSEC_PER_MSEC);
 #endif
 /*
  * The initial- and re-scaling of tunables is configurable
@@ -71,19 +71,19 @@ __read_mostly unsigned int sysctl_sched_walt_cpu_high_irqload =
  * SCHED_TUNABLESCALING_LINEAR - scaled linear, *ncpus
  */
 enum sched_tunable_scaling sysctl_sched_tunable_scaling
-	= SCHED_TUNABLESCALING_LOG;
+	= SCHED_TUNABLESCALING_NONE;
 
 /*
  * Minimal preemption granularity for CPU-bound tasks:
  * (default: 0.75 msec * (1 + ilog(ncpus)), units: nanoseconds)
  */
-unsigned int sysctl_sched_min_granularity = 750000ULL;
-unsigned int normalized_sysctl_sched_min_granularity = 750000ULL;
+unsigned int sysctl_sched_min_granularity = 1250000ULL;
+unsigned int normalized_sysctl_sched_min_granularity = 1250000ULL;
 
 /*
  * is kept at sysctl_sched_latency / sysctl_sched_min_granularity
  */
-static unsigned int sched_nr_latency = 8;
+static unsigned int sched_nr_latency = 16;
 
 /*
  * After fork, child runs first. If set to 0 (default) then
@@ -104,17 +104,17 @@ unsigned int __read_mostly sysctl_sched_energy_aware = 1;
  * and reduces their over-scheduling. Synchronous workloads will still
  * have immediate wakeup/sleep latencies.
  */
-unsigned int sysctl_sched_wakeup_granularity = 1000000UL;
-unsigned int normalized_sysctl_sched_wakeup_granularity = 1000000UL;
+unsigned int sysctl_sched_wakeup_granularity = 10000000UL;
+unsigned int normalized_sysctl_sched_wakeup_granularity = 10000000UL;
 
-const_debug unsigned int sysctl_sched_migration_cost = 500000UL;
+const_debug unsigned int sysctl_sched_migration_cost = 100000UL;
 
 /*
  * The exponential sliding  window over which load is averaged for shares
  * distribution.
- * (default: 10msec)
+ * (default: 20msec)
  */
-unsigned int __read_mostly sysctl_sched_shares_window = 10000000UL;
+unsigned int __read_mostly sysctl_sched_shares_window = 20000000UL;
 
 #ifdef CONFIG_CFS_BANDWIDTH
 /*
@@ -125,9 +125,9 @@ unsigned int __read_mostly sysctl_sched_shares_window = 10000000UL;
  * to consumption or the quota being specified to be smaller than the slice)
  * we will always only issue the remaining available time.
  *
- * default: 5 msec, units: microseconds
+ * default: 10 msec, units: microseconds
   */
-unsigned int sysctl_sched_cfs_bandwidth_slice = 5000UL;
+unsigned int sysctl_sched_cfs_bandwidth_slice = 10000UL;
 #endif
 
 /*
@@ -7565,7 +7565,7 @@ static bool yield_to_task_fair(struct rq *rq, struct task_struct *p, bool preemp
  *
  * The adjacency matrix of the resulting graph is given by:
  *
- *             log_2 n     
+ *             log_2 n
  *   A_i,j = \Union     (i % 2^k == 0) && i / 2^(k+1) == j / 2^(k+1)  (6)
  *             k = 0
  *
@@ -7611,7 +7611,7 @@ static bool yield_to_task_fair(struct rq *rq, struct task_struct *p, bool preemp
  *
  * [XXX write more on how we solve this.. _after_ merging pjt's patches that
  *      rewrite all of this once again.]
- */ 
+ */
 
 static unsigned long __read_mostly max_load_balance_interval = HZ/10;
 
@@ -8345,7 +8345,7 @@ void update_group_capacity(struct sched_domain *sd, int cpu)
 		/*
 		 * !SD_OVERLAP domains can assume that child groups
 		 * span the current group.
-		 */ 
+		 */
 
 		group = child->groups;
 		do {
