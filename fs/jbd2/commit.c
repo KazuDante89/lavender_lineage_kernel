@@ -244,7 +244,7 @@ static int journal_submit_data_buffers(journal_t *journal,
 		 * block allocation  with delalloc. We need to write
 		 * only allocated blocks here.
 		 */
-		trace_jbd2_submit_inode_data(jinode->i_vfs_inode);
+		//trace_jbd2_submit_inode_data(jinode->i_vfs_inode);
 #ifndef CONFIG_MACH_LONGCHEER
 		err = journal_submit_inode_data_buffers(mapping);
 #else
